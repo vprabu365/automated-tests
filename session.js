@@ -14,14 +14,48 @@ async function launchChromium() {
     })
 }
 
-async function loginToFacebook (page, username, password) {
+/*
+async function login({ page, options } = {}) {
+  await page.waitForSelector(options.loginSelector);
+  await page.click(options.loginSelector);
+  await page.waitForSelector(".valet-masthead__signin-link-label");
+  await page.click(".valet-masthead__signin-link-label");
+}
+
+async function typeUsername({ page, options } = {}) {
+  await page.waitForSelector('input[type="email"]');
+  await page.type('input[type="email"]', options.username);
+  const found = (await page.content()).includes("One account. All of Google.");
+  const nextButton = found ? "#next" : "#identifierNext";
+  await page.click(nextButton);
+}
+
+async function typePassword({ page, options } = {}) {
+  await page.waitForSelector('input[type="password"]', { visible: true });
+  await page.type('input[type="password"]', options.password);
+  const found = (await page.content()).includes("One account. All of Google.");
+  const signInButton = found ? "#signIn" : "#passwordNext";
+  await page.waitForSelector(signInButton, { visible: true });
+  await page.click(signInButton);
+}
+* */
+
+async function googleLogin (page, username, password) {
     if (!username || !password) {
 		throw new Error('Username or Password missing for login');
 	}
-    await page.waitForSelector(`#email`);
-	await page.fill(`#email`, username);
-	await page.fill(`#pass`, password);
-	return await page.click(`#loginbutton`);
+    await page.waitForSelector(`[data-qa='googleButton']`);
+    await page.click(`[data-qa='googleButton']`);
+
+    await page.waitForSelector(".valet-masthead__signin-link-label");
+    await page.click(".valet-masthead__signin-link-label");
+
+	await page.fill(`input[type="email"]`, username);
+    const nextButton = "#identifierNext";
+    await page.click(nextButton);
+
+	await page.fill(`input[type="password"]`, password);
+	return await page.click(`#passwordNext`);
 }
 
 async function getLocalStorageData(page) {
@@ -55,7 +89,7 @@ module.exports = {
         const context = await browser.newContext();
         const page = await context.newPage();
         await page.goto(url);
-        await loginToFacebook(page, username, password);
+        await googleLogin(page, username, password);
         await page.waitForNavigation({
             waitUntil: `networkidle`
         });
@@ -63,7 +97,9 @@ module.exports = {
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
         return {
-            cookies, lsd, ssd
+            cookies,
+            lsd,
+            ssd
         }
     }
 }

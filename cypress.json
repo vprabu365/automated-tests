@@ -1,1 +1,4 @@
-{}
+{
+    "baseUrl": "https://qa.peardeck.dev/home/?finalDestinationUrl=%2Fhome%2F&idProvider=google",
+    "chromeWebSecurity": false
+}
