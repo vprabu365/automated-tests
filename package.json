@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test":"npx cypress run --spec cypress/integration/*.js"
   },
   "keywords": [],
   "author": "",
