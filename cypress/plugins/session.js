@@ -46,7 +46,8 @@ async function googleLogin (page, username, password) {
 	}
     await page.waitForSelector(`[data-qa='googleButton']`);
     await page.click(`[data-qa='googleButton']`);
-    await page.waitForSelector("[id='integrationTest_valetHeader']")
+    await page.waitForNavigation();
+   // await page.waitForSelector("[id='integrationTest_valetHeader']")
     await page.waitForSelector(".valet-masthead__signin-link-label");
     await page.click(".valet-masthead__signin-link-label");
 
@@ -55,7 +56,8 @@ async function googleLogin (page, username, password) {
     await page.click(nextButton);
 
 	await page.fill(`input[type="password"]`, password);
-	return await page.click(`#passwordNext`);
+	 await page.click(`#passwordNext`);
+  await page.waitForNavigation()
   //await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
 }
 
