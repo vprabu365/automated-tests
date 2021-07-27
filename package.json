@@ -6,7 +6,7 @@
   "scripts": {
     "cy:open": "cypress open",
     "preinstall": "./node_modules/.bin/cypress install",
-    "test": "./node_modules/.bin/cypress run --headless --browser chrome --record --parallel --ci-build-id $BUILDKITE_BUILD_ID"
+    "test": "./node_modules/.bin/cypress run --headless --browser chrome --ci-build-id $BUILDKITE_BUILD_ID"
   },
   "keywords": [],
   "author": "",
