@@ -55,8 +55,8 @@ async function googleLogin (page, username, password) {
     await page.click(nextButton);
 
 	await page.fill(`input[type="password"]`, password);
-	await page.click(`#passwordNext`);
-  return await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
+	return await page.click(`#passwordNext`);
+  //await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
 }
 
 async function getLocalStorageData(page) {
@@ -91,13 +91,14 @@ module.exports = {
         const page = await context.newPage();
         await page.goto(url);
         await googleLogin(page, username, password);
-        await page.waitForNavigation({
-            waitUntil: `networkidle`,
-            waitUntil: 'load' 
-        });
+        await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
+        // await page.waitForNavigation({
+        //     waitUntil: `networkidle`
+        // });
         const cookies = await context.cookies();
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
+        await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
       //   await page.waitForNavigation({
       //     waitUntil: `networkidle`,
       //     waitUntil: 'load' 
