@@ -47,7 +47,7 @@ async function googleLogin (page, username, password) {
     await page.waitForSelector(`[data-qa='googleButton']`);
     await page.click(`[data-qa='googleButton']`);
 
-    await page.waitForSelector(".valet-masthead__signin-link-label");
+   // await page.waitForSelector(".valet-masthead__signin-link-label");
     await page.click(".valet-masthead__signin-link-label");
 
 	await page.fill(`input[type="email"]`, username);
@@ -90,9 +90,9 @@ module.exports = {
         const page = await context.newPage();
         await page.goto(url);
         await googleLogin(page, username, password);
-        await page.waitForNavigation({
-            waitUntil: `networkidle`
-        });
+        // await page.waitForNavigation({
+        //     waitUntil: `networkidle`
+        // });
         const cookies = await context.cookies();
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
