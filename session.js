@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+import { chromium } from 'playwright';
 
 async function launchChromium() {
     return await chromium.launch({
@@ -102,5 +102,5 @@ module.exports = {
             ssd
         }
     }
-}
+};
 

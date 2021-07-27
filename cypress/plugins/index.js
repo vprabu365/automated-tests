@@ -15,7 +15,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-const {GetSession} = require('../../session');
+import { GetSession } from '../../session';
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
