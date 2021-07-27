@@ -34,3 +34,8 @@ Cypress.on('window:before:load', function (win) {
       set: function () { }
     })
   })
+
+  Cypress.on("uncaught:exception", (err, runnable) => {
+    cy.log("Ignored an uncaught exception");
+    return false;
+  });
