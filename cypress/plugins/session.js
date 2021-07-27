@@ -90,12 +90,17 @@ module.exports = {
         const page = await context.newPage();
         await page.goto(url);
         await googleLogin(page, username, password);
-        // await page.waitForNavigation({
-        //     waitUntil: `networkidle`
-        // });
+        await page.waitForNavigation({
+            waitUntil: `networkidle`,
+            waitUntil: 'load' 
+        });
         const cookies = await context.cookies();
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
+        await page.waitForNavigation({
+          waitUntil: `networkidle`,
+          waitUntil: 'load' 
+      });
         await page.close()
         return {
             cookies,
