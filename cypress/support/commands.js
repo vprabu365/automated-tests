@@ -23,6 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add(`login`,function () {
+	cy.task(`getSession`, {username: `studentm@dev-edu-peardeck.com`, password: `howdy235`, url: `https://qa.peardeck.dev/authPicker?finalDestinationUrl=%2Fhome%2F`}).then(session => {
+		cy.restoreSession(session);
+	})
+});
 
 Cypress.Commands.add(`restoreSession`, function ({cookies, lsd, ssd}) {
 	const wList = [];
