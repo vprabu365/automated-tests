@@ -22,6 +22,12 @@ const { GetSession } = require('./session.js');
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  on("before:browser:launch", (browser = {}, launchOptions) => {
+    if (browser.name === "electron") {
+      launchOptions.args.push("--disable-dev-shm-usage");
+      return launchOptions;
+    }
+  })
   on('task', {
     getSession({username, password, url}) {
       return new Promise(async resolve => {
@@ -29,6 +35,5 @@ module.exports = (on, config) => {
       });
     },
   });
-
   return config;
 };
