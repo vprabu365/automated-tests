@@ -6,7 +6,7 @@
   "scripts": {
     "cy:open": "cypress open",
     "preinstall": "./node_modules/.bin/cypress install",
-    "test": "./node_modules/.bin/cypress run --headed --record --key=035d41e9-9eb1-45c5-8d62-eecdcda16773 --parallel"
+    "test": "./node_modules/.bin/cypress run --headed --record --key=035d41e9-9eb1-45c5-8d62-eecdcda16773 --ci-build-id ${CI_BUILD_ID} --parallel"
   },
   "keywords": [],
   "author": "",
