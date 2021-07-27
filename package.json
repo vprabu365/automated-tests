@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "cy:open": "cypress open",
     "preinstall": "./node_modules/.bin/cypress install",
     "test": "./node_modules/.bin/cypress run"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
