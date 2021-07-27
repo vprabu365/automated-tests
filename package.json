@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "cy:open": "cypress open",
-    "test":"./node_modules/.bin/cypress run"
+    "test":"./node_modules/.bin/cypress run",
+    "postinstall": "node -e \"try { require('./scripts/postinstall') } catch (_) {}\""
   },
   "keywords": [],
   "author": "",
