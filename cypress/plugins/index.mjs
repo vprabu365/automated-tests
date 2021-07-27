@@ -1,4 +1,4 @@
-import { GetSession } from './session';
+import { GetSession } from './session.mjs';
 
 /// <reference types="cypress" />
 // ***********************************************************
