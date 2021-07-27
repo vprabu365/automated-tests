@@ -96,6 +96,7 @@ module.exports = {
         const cookies = await context.cookies();
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
+        await page.close()
         return {
             cookies,
             lsd,
