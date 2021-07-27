@@ -1,5 +1,7 @@
 {
     "baseUrl": "https://qa.peardeck.dev/home/?finalDestinationUrl=%2Fhome%2F&idProvider=google",
     "chromeWebSecurity": false,
-    "video": false
+    "video": false,
+    "projectId": "1f9jku"
+
 }
