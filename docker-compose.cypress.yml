@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  cypress:
+    container_name: 'cypress-e2e'
+    image: 'cypress/included:3.4.1'
+    working_dir: /e2e
+    volumes:
+      - .:/e2e
+    environment:
+      - CYPRESS_baseUrl=${CYPRESS_BASE_URL}
+    entrypoint: cypress run --spec ${CYPRESS_SPEC} --config video=false --env AUTH=${CYPRESS_AUTH},USERNAME=${CYPRESS_AUTH_USERNAME},PASSWORD=${CYPRESS_AUTH_PASSWORD}
