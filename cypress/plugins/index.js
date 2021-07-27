@@ -1,4 +1,4 @@
-import { GetSession } from './session.mjs';
+const { GetSession } = require('./session.js');
 
 /// <reference types="cypress" />
 // ***********************************************************
