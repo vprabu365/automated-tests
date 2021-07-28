@@ -16,8 +16,7 @@ steps:
     command: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
     parallelism: 1
     
-    
-    
+  
     
     
     
