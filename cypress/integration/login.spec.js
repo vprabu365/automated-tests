@@ -1,10 +1,11 @@
 describe(`login scenario using task`, () => {
 
-    it(`login test`, () => {
+    it.only(`login test`, () => {
         cy.login();
         cy.visit(`/home`);
-        cy.get("[class='c-nav__profile__menu-arrow']").click();
-        cy.get("[href='/auth/logout']").click()
-        cy.get('[data-qa="googleButton"]').should('be.visible')
+        // cy.get("[class='c-nav__profile__menu-arrow']").click();
+        // cy.get("[href='/auth/logout']").should('be.visible');
+        // cy.get("[href='/auth/logout']").click()
+        // cy.get('[data-qa="googleButton"]').should('be.visible')
     })
 });

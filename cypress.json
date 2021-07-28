@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://qa.peardeck.dev/home/?finalDestinationUrl=%2Fhome%2F&idProvider=google",
+    "baseUrl": "https://qa.peardeck.dev/",
     "chromeWebSecurity": false,
     "video": false,
     "taskTimeout":80000,
