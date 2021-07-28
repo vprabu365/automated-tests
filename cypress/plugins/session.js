@@ -105,7 +105,7 @@ module.exports = {
       //     waitUntil: `networkidle`,
       //     waitUntil: 'load' 
       // });
-        //await page.close()
+       await browser.close();
         return {
             cookies,
             lsd,
