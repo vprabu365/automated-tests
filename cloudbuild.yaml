@@ -1,11 +1,13 @@
-- name: node
+steps:
+  # Welcome message.
+  - name: node
     id: Install Dependencies
     entrypoint: yarn
     args: ['install']
     env:
       - 'CYPRESS_CACHE_FOLDER=/workspace/.tmp/Cypress'
 
-- name: docker
+  - name: docker
     id: Run E2Es
     args:
       [
