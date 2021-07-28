@@ -14,7 +14,6 @@ steps:
     
   - name: npm install and run tests
     command: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
-    echo "Set up KNOWN_HOSTS"
     
   
     
