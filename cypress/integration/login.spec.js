@@ -8,5 +8,7 @@ describe(`login scenario using task`, () => {
         cy.get("[href='/auth/logout']").scrollIntoView().should('be.visible')
         cy.get("[href='/auth/logout']").click()
         cy.get('[data-qa="googleButton"]').should('be.visible')
+
+        
     })
 });
