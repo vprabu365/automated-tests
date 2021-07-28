@@ -1,0 +1,22 @@
+- name: node
+    id: Install Dependencies
+    entrypoint: yarn
+    args: ['install']
+    env:
+      - 'CYPRESS_CACHE_FOLDER=/workspace/.tmp/Cypress'
+
+- name: docker
+    id: Run E2Es
+    args:
+      [
+        'run',
+        '--workdir',
+        '/e2e',
+        '--volume',
+        '/workspace:/e2e',
+        '--env',
+        'CYPRESS_CACHE_FOLDER=/e2e/.tmp/Cypress',
+        '--ipc',
+        'host',
+        'cypress/included:3.2.0'
+      ]
