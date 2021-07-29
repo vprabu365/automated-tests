@@ -53,7 +53,8 @@ RUN echo  " node version:    $(node -v) \n" \
 
 FROM cypress/base:10.0.0
 
-RUN CYPRESS_INSTALL_BINARY=~/Downloads/cypress.zip npm install cypress --save-dev
+ENV HOME="${env.WORKSPACE}"
+RUN npm install --save-dev cypress
 
 RUN $(npm bin)/cypress verify
 
