@@ -5,7 +5,7 @@ steps:
     entrypoint: yarn
     args: ['install']
     env:
-      - 'CYPRESS_CACHE_FOLDER=./node_modules/.bin/cypress run install --force'
+      - 'CYPRESS_CACHE_FOLDER=./node_modules/.bin/cypress install --force'
 
   - name: docker
     id: Run E2Es
