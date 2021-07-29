@@ -10,7 +10,7 @@ RUN apt-get update &&\
     apt-get -y install libdrm2 &&\
     apt-get -y install libgbm1 && \
     apt-get -y install libgtk-3-0 && \
-    apt-get -y install libxkbcommon-x11-0 && 
+    apt-get -y install libxkbcommon-x11-0
 
 # Move to the directory and install all the dependencies listed in Package.json
 RUN cd playwright-master && \
