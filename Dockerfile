@@ -41,4 +41,4 @@ ENV npm_config_loglevel warn
 # allow installing when the main user is root
 ENV npm_config_unsafe_perm true
 
-RUN docker run -it -v $PWD:/e2e -w /e2e -e CYPRESS_VIDEO cypress/included:3.2.0
+RUN npm run test:ci
