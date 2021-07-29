@@ -13,8 +13,7 @@ RUN apt-get update &&\
     apt-get -y install libxkbcommon-x11-0
 
 # Move to the directory and install all the dependencies listed in Package.json
-RUN cd playwright-master && \
-    npm install
+RUN npm install playwright -save
 
 FROM cypress/base:8.0.0
 # FROM cypress/base:12.4.0
