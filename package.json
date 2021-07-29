@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "cypress": "8.0.0",
     "playwright": "^1.8.0",
     "typescript": "^4.3.5"
