@@ -1,58 +1,54 @@
-FROM cypress/base:14.17.0
+FROM node:10
 
-USER root
+COPY . .
 
-RUN node --version
+#Installing all the dependencies needed by Playwright
+RUN apt-get update &&\
+    apt-get -y install libnss3 &&\
+    apt-get -y install libasound2 &&\
+    apt-get -y install libatspi2.0-0 &&\
+    apt-get -y install libdrm2 &&\
+    apt-get -y install libgbm1 && \
+    apt-get -y install libgtk-3-0 && \
+    apt-get -y install libxkbcommon-x11-0 && \
 
-# Chrome dependencies
-RUN apt-get update
-RUN apt-get install -y fonts-liberation libappindicator3-1 xdg-utils
+# Move to the directory and install all the dependencies listed in Package.json
+RUN cd playwright-master && \
+    npm install
 
-# install Chrome browser
-ENV CHROME_VERSION 91.0.4472.114
-RUN wget -O /usr/src/google-chrome-stable_current_amd64.deb "http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}-1_amd64.deb" && \
-  dpkg -i /usr/src/google-chrome-stable_current_amd64.deb ; \
-  apt-get install -f -y && \
-  rm -f /usr/src/google-chrome-stable_current_amd64.deb
-RUN google-chrome --version
+FROM cypress/base:8.0.0
+# FROM cypress/base:12.4.0
+# FROM cypress/browsers:node12.6.0-chrome77
+#
+# FROM cypress/base:ubuntu19-node12.14.1
 
-# "fake" dbus address to prevent errors
-# https://github.com/SeleniumHQ/docker-selenium/issues/87
-ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+RUN echo "current user: $(whoami)"
+RUN echo "current node: $(node -v)"
+RUN echo "current npm:  $(npm -v)"
 
-# Add zip utility - it comes in very handy
-RUN apt-get update && apt-get install -y zip
+# avoid too many progress messages
+# https://github.com/cypress-io/cypress/issues/1243
+ENV CI=1
+# create package.json file
+RUN npm init --yes
 
+# # install either a specific version of Cypress
+ENV CYPRESS_INSTALL_BINARY=https://cdn.cypress.io/beta/binary/4.0.3/darwin-x64/circle-develop-cb0f32b0b4913cbb403f2e7c51b23ecad50ece9f-266831/cypress.zip
+# RUN npm install --save-dev cypress@4.0.2
+RUN npm install https://cdn.cypress.io/beta/npm/4.0.3/circle-develop-cb0f32b0b4913cbb403f2e7c51b23ecad50ece9f-266811/cypress.tgz
+# # or install a beta version of Cypress using environment variables
+# # ENV CYPRESS_INSTALL_BINARY=https://cdn.cypress.io/beta/binary/3.3.0/linux64/circle-develop-40502cbfb7b934afce0a7b1dba4141dab4adb202-100529/cypress.zip
+# # RUN npm install https://cdn.cypress.io/beta/npm/3.3.0/circle-develop-40502cbfb7b934afce0a7b1dba4141dab4adb202-100527/cypress.tgz
 
-# versions of local tools
-RUN echo  " node version:    $(node -v) \n" \
-  "npm version:     $(npm -v) \n" \
-  "yarn version:    $(yarn -v) \n" \
-  "debian version:  $(cat /etc/debian_version) \n" \
-  "Chrome version:  $(google-chrome --version) \n" \
-  "git version:     $(git --version) \n" \
-  "whoami:          $(whoami) \n"
+# show where Cypress binary was installed
+# hmm, why silent exit?!
+RUN $(npm bin)/cypress cache path
 
-# a few environment variables to make NPM installs easier
-# good colors for most applications
-ENV TERM xterm
-# avoid million NPM install messages
-ENV npm_config_loglevel warn
-# allow installing when the main user is root
-ENV npm_config_unsafe_perm true
+RUN ELECTRON_ENABLE_STACK_DUMPING=1 $(npm bin)/cypress verify
+# initialize a basic project with Cypress tests
+RUN npx @bahmutov/cly init
+# if testing a base image with just Electron use "cypress run"
+RUN $(npm bin)/cypress run
+# # # if testing an image with Chrome browser
+# # RUN $(npm bin)/cypress run --browser chrome
 
-FROM alpine:3.11 as e2eBuild
-
-# Copy NPM & Install
-COPY ./package.json /tmp/package.json
-RUN cd /tmp && CI=true npm install
-RUN CI=true npm install playwright --save
-RUN CI=true /tmp/node_modules/.bin/cypress install
-RUN mkdir -p /e2e && cp -a /tmp/node_modules /e2e/
-
-WORKDIR /e2e
-# Copy files for config
-COPY ./cypress/cypress.json /e2e
-
-# Run tests
-CMD ["./node_modules/.bin/cypress", "run" ]
