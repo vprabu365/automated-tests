@@ -2,10 +2,10 @@ steps:
   # Welcome message.
   - name: node
     id: Install Dependencies
-    entrypoint: yarn
+    entrypoint: npm
     args: ['install']
     env:
-      - 'CYPRESS_CACHE_FOLDER=/workspace/.tmp/Cypress'
+      - 'CYPRESS_CACHE_FOLDER=./tmp/Cypress npm install'
 
   - name: docker
     id: Run E2Es
@@ -17,7 +17,7 @@ steps:
         '--volume',
         '/workspace:/e2e',
         '--env',
-        'CYPRESS_CACHE_FOLDER=/e2e/.tmp/Cypress',
+        'CYPRESS_CACHE_FOLDER=./tmp/Cypress npx cy run'
         '--ipc',
         'host',
         'cypress/included:3.2.0'
