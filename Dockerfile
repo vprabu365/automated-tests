@@ -53,9 +53,8 @@ RUN echo  " node version:    $(node -v) \n" \
 
 FROM cypress/base:10.0.0
 
-ENV HOME="${env.WORKSPACE}"
+ENV CYPRESS_CACHE_FOLDER='~/.cache/Cypress'
+  
 RUN npm install --save-dev cypress
-
-RUN $(npm bin)/cypress verify
 
 RUN $(npm bin)/cypress run
