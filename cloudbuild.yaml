@@ -17,7 +17,7 @@ steps:
         '--volume',
         '/workspace:/e2e',
         '--env',
-        'CYPRESS_CACHE_FOLDER=./tmp/Cypress npx cy run'
+        'CYPRESS_CACHE_FOLDER=./tmp/Cypress npx run test',
         '--ipc',
         'host',
         'cypress/included:3.2.0'
