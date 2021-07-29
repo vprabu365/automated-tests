@@ -55,6 +55,6 @@ FROM cypress/base:10.0.0
 
 ENV CYPRESS_CACHE_FOLDER='~/.cache/Cypress'
   
-RUN npm install --save-dev cypress
+ENV CYPRESS_CACHE_FOLDER='~/Desktop/cypress_cache npm install'
 
 RUN $(npm bin)/cypress run
