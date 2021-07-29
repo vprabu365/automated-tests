@@ -41,7 +41,7 @@ ENV npm_config_loglevel warn
 # allow installing when the main user is root
 ENV npm_config_unsafe_perm true
 
-FROM ubuntu:bionic as e2eBuild
+FROM alpine:3.11 as e2eBuild
 
 # Copy NPM & Install
 COPY ./package.json /tmp/package.json
