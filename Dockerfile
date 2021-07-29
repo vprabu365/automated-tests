@@ -47,7 +47,7 @@ FROM cypress/base:8 as e2eBuild
 COPY ./package.json /tmp/package.json
 RUN cd /tmp && CI=true npm install
 RUN CI=true /tmp/node_modules/.bin/cypress install
-RUN CI=true /tmp/node_modules/.bin/playwright install
+RUN CI=true  npm i -D @playwright/test
 RUN mkdir -p /e2e && cp -a /tmp/node_modules /e2e/
 
 WORKDIR /e2e
