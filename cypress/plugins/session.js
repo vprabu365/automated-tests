@@ -57,6 +57,7 @@ async function googleLogin (page, username, password) {
    // await page.waitForNavigation()
   //await page.waitForSelector('input[autocomplete="current-password"]')
  // await page.pause(5000)
+ await page.click('[aria-label="Enter your password"]')
 	await page.fill(`div[id='password']`, password);
 	 await page.click(`#passwordNext`);
   //await page.waitForNavigation()
