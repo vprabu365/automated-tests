@@ -59,7 +59,8 @@ async function googleLogin (page, username, password) {
   await page.pause(5000)
 	await page.fill(`input[type="password"]`, password);
 	 await page.click(`#passwordNext`);
-  await page.waitForNavigation()
+  //await page.waitForNavigation()
+  await page.pause(5000)
   //await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
 }
 
