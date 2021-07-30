@@ -54,11 +54,13 @@ async function googleLogin (page, username, password) {
 	await page.fill(`input[type="email"]`, username);
     const nextButton = "#identifierNext";
     await page.click(nextButton);
+  
+    console.log("hello")
    // await page.waitForNavigation()
   //await page.waitForSelector('input[autocomplete="current-password"]')
  // await page.pause(5000)
- await page.click('[aria-label="Enter your password"]')
-	await page.fill(`div[id='password']`, password);
+ await page.click('input[class="F29zPe"][type="password"]')
+	await page.fill(`input[class="F29zPe"][type="password"]`, password);
 	 await page.click(`#passwordNext`);
   //await page.waitForNavigation()
  // await page.pause(5000)
