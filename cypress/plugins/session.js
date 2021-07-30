@@ -55,13 +55,13 @@ async function googleLogin (page, username, password) {
     const nextButton = "#identifierNext";
     await page.click(nextButton);
    // await page.waitForNavigation()
-  //await page.waitForSelector("div[id='password']")
-  await page.pause(5000)
+  await page.isVisible("div[id='password']")
+ // await page.pause(5000)
 	await page.fill(`input[type="password"]`, password);
 	 await page.click(`#passwordNext`);
   //await page.waitForNavigation()
-  await page.pause(5000)
-  //await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
+ // await page.pause(5000)
+ await page.isVisible('[data-qa="pdActivitiesHeader"]');
 }
 
 async function getLocalStorageData(page) {
@@ -104,9 +104,10 @@ module.exports = {
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
         await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
-        await page.waitForNavigation({
-          waitUntil: `networkidle` 
-      });
+      //   await page.waitForNavigation({
+      //     waitUntil: `networkidle`,
+      //     waitUntil: 'load' 
+      // });
        await browser.close();
         return {
             cookies,
