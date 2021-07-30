@@ -104,11 +104,10 @@ module.exports = {
         const lsd = await getLocalStorageData(page);
         const ssd = await getSessionStorageData(page);
         await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
-      //   await page.waitForNavigation({
-      //     waitUntil: `networkidle`,
-      //     waitUntil: 'load' 
-      // });
-      // await browser.close();
+        await page.waitForNavigation({
+          waitUntil: `networkidle` 
+      });
+       await browser.close();
         return {
             cookies,
             lsd,
