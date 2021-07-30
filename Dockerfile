@@ -13,6 +13,8 @@ RUN apt-get update &&\
     apt-get -y install libxkbcommon-x11-0
 
 RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+RUN apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb
 # Move to the directory and install all the dependencies listed in Package.json
 RUN npm install playwright -save
 
