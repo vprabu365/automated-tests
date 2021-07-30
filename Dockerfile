@@ -14,7 +14,11 @@ RUN apt-get update &&\
 
 RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
-RUN apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb
+RUN apt-get -y install npm &&\
+    apt-get install -y wget &&\
+    apt-get install libxss1 libappindicator1 libindicator7 &&\
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&\ 
+    apt -y install ./google-chrome*.deb
 # Move to the directory and install all the dependencies listed in Package.json
 RUN npm install playwright -save
 
