@@ -58,10 +58,13 @@ async function googleLogin (page, username, password) {
     
    // await page.waitForNavigation()
    await page.waitForSelector("input[type='password']+div")
+  //  await page.pause()
+  //  await page.click("input[type='password']+div")
+   
  // await page.pause(5000)
  //await page.click("//*[text()='Enter your password']")
 // console.log("hello")
-	await page.fill("input[type='password']+div", password);
+	await page.fill("[name='password']", password);
 	 await page.click(`#passwordNext`);
   //await page.waitForNavigation()
  // await page.pause(5000)
