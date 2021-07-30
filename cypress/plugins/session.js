@@ -55,13 +55,13 @@ async function googleLogin (page, username, password) {
     const nextButton = "#identifierNext";
     await page.click(nextButton);
    // await page.waitForNavigation()
-  await page.isVisible("div[id='password']")
+  await page.waitForSelector("div[id='password']")
  // await page.pause(5000)
 	await page.fill(`input[type="password"]`, password);
 	 await page.click(`#passwordNext`);
   //await page.waitForNavigation()
  // await page.pause(5000)
- await page.isVisible('[data-qa="pdActivitiesHeader"]');
+ await page.waitForSelector('[data-qa="pdActivitiesHeader"]');
 }
 
 async function getLocalStorageData(page) {
