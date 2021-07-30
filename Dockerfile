@@ -21,7 +21,7 @@ RUN apt-get install -y wget &&\
 # Move to the directory and install all the dependencies listed in Package.json
 RUN npm install playwright -save
 
-RUN $(npm bin)/cypress run --browser chrome
+RUN $(npm bin)/cypress run --headed
 
 # FROM cypress/base:8.0.0
 # # FROM cypress/base:12.4.0
