@@ -1,6 +1,6 @@
 describe(`login scenario using task`, () => {
 
-    it.only(`login test`, () => {
+    it.skip(`login test`, () => {
         cy.login();
         cy.visit(`/home`);
         cy.get('[data-qa="pdActivitiesHeader"]').should('be.visible')
