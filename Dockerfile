@@ -12,6 +12,7 @@ RUN apt-get update &&\
     apt-get -y install libgtk-3-0 && \
     apt-get -y install libxkbcommon-x11-0
 
+RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 # Move to the directory and install all the dependencies listed in Package.json
 RUN npm install playwright -save
 
