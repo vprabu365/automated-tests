@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://qa.peardeck.dev/",
+    "baseUrl": "https://app.pdstaging.com/",
     "chromeWebSecurity": false,
     "video": false,
     "taskTimeout":80000,

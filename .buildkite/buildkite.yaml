@@ -3,11 +3,10 @@ env:
   BUILDKITE_BUILD_ID: "1f9jku"
 
 steps:
-
   - name: Upload
     command: "buildkite-agent pipeline upload"
     label: ":pipeline:"
-    
+
   - name: Install Node
     command: "apt-get update\napt-get -y install nodejs\n"
     
