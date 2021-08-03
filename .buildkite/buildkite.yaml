@@ -3,21 +3,24 @@ env:
   BUILDKITE_BUILD_ID: "1f9jku"
 
 steps:
+
+  - name: Upload
+    command: "buildkite-agent pipeline upload"
+    label: ":pipeline:"
+    
   - name: Install Node
-    command: "sudo apt-get update\nsudo apt-get -y install nodejs\n"
+    command: "apt-get update\napt-get -y install nodejs\n"
     
   - name: Install Cypress CI dependencies
-    command: "sudo apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
+    command: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
 
   - name: Install Chrome binaries
-    command: "sudo apt-get -y install npm\napt-get install -y wget\nsudo apt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n sudo apt -y install ./google-chrome*.deb"
+    command: "apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb"
     
   - name: npm install and run tests
-    command: "sudo npm i -D cypress\nsudo npm i -D playwright\nsudo npm run test"
+    command: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
     
-  
-    
-    
+
     
     
     
