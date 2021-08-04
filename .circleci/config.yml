@@ -1,10 +1,28 @@
-version: 2
+version: 2.1
+
+# Define the jobs we want to run for this project
 jobs:
   build:
     docker:
-      # using custom image, see .circleci/images/primary/Dockerfile
-      - image: circleci/automated-tests:1
-    # working_directory: /go/src/github.com/circleci/cci-demo-docker
+      - image: node:10
+    steps:
+      - run: "apt-get -y install curl && curl -sL https://deb.nodesource.com/setup_6.x | bash -"
+      - run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
+      - run: "apt-get install -y wget && apt-get -y install libxss1 libappindicator1 libindicator7"
+      - run: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+      - run: "apt -y install ./google-chrome*.deb"
+  test:
+    docker:
+     - image: node:10
+    steps:
+      - run: "npm i -D cypress && npm i -D playwright"
+      - run: "npm run test"
 
-    environment:
-      TEST_RESULTS: /tmp/test-results
+# Orchestrate our job run sequence
+workflows:
+  run e2e tests:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
