@@ -12,7 +12,7 @@ jobs:
       - run: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
       - run: "apt -y install ./google-chrome*.deb"
       - run: "npm i -D cypress && npm i -D playwright"
-      - run: "npx cypress run --browser chrome"
+      - run: "npm run tests"
 
 # Orchestrate our job run sequence
 workflows:
