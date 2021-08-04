@@ -7,11 +7,10 @@ jobs:
       - image: node:10
     steps:
       - checkout
-      - run: "apt-get y install curl"
+      - run: "apt-get -y install curl"
       - run: "curl -sL https://deb.nodesource.com/setup_6.x | bash -"
       - run: "apt-get install -y nodejs"
       - run: "apt-get install -y npm"
-      - run: "apt-get update"
       - run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
       - run: "apt-get install -y wget"
       - run: "apt-get install libxss1 libappindicator1 libindicator7"
