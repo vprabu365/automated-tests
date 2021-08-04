@@ -1,19 +1,18 @@
-version: 1
+version: 2.1
+
+# Define the jobs we want to run for this project
 jobs:
-  job1:
+  build and test:
     docker:
       - image: node:10
     steps:
-    - checkout
-    run: "apt-get update\napt-get -y install nodejs\n"
-    
-
-
-  #   run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
-
-  # - name: Install Chrome binaries
-  #   command: "apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb"
-    
-  # - name: npm install and run tests
-  #   command: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
-    
+      - checkout
+      - run: "apt-get update\napt-get -y install nodejs\n"
+      - run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
+      - run: "apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb"
+      - run: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
+      
+workflows:
+  build_and_test:
+    jobs:
+      - build and test
