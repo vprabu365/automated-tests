@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: node:10
     steps:
+      - checkout
       - run: "apt-get -y install curl && curl -sL https://deb.nodesource.com/setup_6.x | bash -"
       - run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
       - run: "apt-get install -y wget && apt-get install -y libxss1 libappindicator1 libindicator7"
