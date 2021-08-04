@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # using custom image, see .circleci/images/primary/Dockerfile
+      - image: circleci/automated-tests:1
+    # working_directory: /go/src/github.com/circleci/cci-demo-docker
+
+    environment:
+      TEST_RESULTS: /tmp/test-results
