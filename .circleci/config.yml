@@ -2,7 +2,7 @@ version: 2.1
 
 # Define the jobs we want to run for this project
 jobs:
-  build:
+  build and test:
     docker:
       - image: node:10
     steps:
@@ -12,18 +12,11 @@ jobs:
       - run: "apt-get install -y wget && apt-get install -y libxss1 libappindicator1 libindicator7"
       - run: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
       - run: "apt -y install ./google-chrome*.deb"
-  test:
-    docker:
-      - image: node:10
-    steps:
-      - checkout
       - run: "npm i -D cypress && npm i -D playwright"
       - run: "npm run test"
 
+# Orchestrate our job run sequence
 workflows:
   run e2e tests:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build and test
