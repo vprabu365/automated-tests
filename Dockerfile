@@ -22,7 +22,7 @@ RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-
 # Move to the directory and install all the dependencies listed in Package.json
 RUN npm install playwright -save
 
-RUN $(npm bin)/cypress run --headed
+RUN $(npm bin)/cypress run --browser chrome
 
 # FROM cypress/base:8.0.0
 # # FROM cypress/base:12.4.0
