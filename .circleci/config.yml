@@ -9,8 +9,13 @@ jobs:
       - checkout
       - run: "apt-get update\napt-get -y install nodejs\n"
       - run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
-      - run: "apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb"
-      - run: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
+      - run: "apt-get -y install npm"
+      - run: "apt-get install -y wget"
+      - run: "apt-get install libxss1 libappindicator1 libindicator7"
+      - run: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+      - run: "apt -y install ./google-chrome*.deb"
+      - run: "npm i -D cypress && npm i -D playwright"
+      - run: "npm run test"
       
 workflows:
   build_and_test:
