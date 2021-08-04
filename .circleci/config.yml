@@ -8,19 +8,20 @@ jobs:
     steps:
       - run: "apt-get -y install curl && curl -sL https://deb.nodesource.com/setup_6.x | bash -"
       - run: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
-      - run: "apt-get install -y wget && apt-get -y install libxss1 libappindicator1 libindicator7"
+      - run: "apt-get install -y wget && apt-get install -y libxss1 libappindicator1 libindicator7"
       - run: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
       - run: "apt -y install ./google-chrome*.deb"
   test:
     docker:
      - image: node:10
+     
     steps:
       - run: "npm i -D cypress && npm i -D playwright"
       - run: "npm run test"
 
 # Orchestrate our job run sequence
 workflows:
-  run e2e tests:
+  build_and_test:
     jobs:
       - build
       - test:
