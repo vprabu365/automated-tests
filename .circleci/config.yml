@@ -17,7 +17,7 @@ jobs:
      
     steps:
       - run: "npm i -D cypress && npm i -D playwright"
-      - run: "(npm bin)/cypress run --browser chrome"
+      - run: "npx cypress run --browser chrome"
 
 # Orchestrate our job run sequence
 workflows:
