@@ -37,7 +37,7 @@ ARG BASE_DOCKER_IMAGE
 # - Configure cache folders for npm and cypress
 # - Install npm and cypress
 # ---------------------------------------------------------------
-FROM alpine-node:14 as base
+FROM node:12 as base
 # Args
 ARG NODE_VERSION
 ARG NPM_VERSION
