@@ -24,6 +24,7 @@ RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-
 
 RUN npm install playwright -save
 
+RUN npm run test --browser chrome
 # good colors for most applications
 ENV TERM xterm
 # avoid million NPM install messages
