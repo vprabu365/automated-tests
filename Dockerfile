@@ -21,14 +21,105 @@ RUN apt-get install -y wget &&\
 RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 # Move to the directory and install all the dependencies listed in Package.json
 # RUN npm install playwright -save
-ARG USER_ID
-ARG GROUP_ID
-RUN groupadd -g ${GROUP_ID} cypress-user
-RUN useradd -r --no-log-init -u ${USER_ID} -g cypress-user cypress-user
-RUN install -d -m 0755 -o cypress-user -g cypress-user /home/cypress-user
-RUN mv /root/.cache /home/cypress-user/.cache
-USER cypress-user
-ENV CYPRESS_CACHE_FOLDER=/home/cypress-user/.cache/Cypress
+
+
+
+# ---------------------------------------------------------------
+# CI image
+# - Used for Gitlab (see .gitlab-ci.yml)
+# - MUST be updated whenever the CI installation requirements (i.e., packages/versions) change
+# ---------------------------------------------------------------
+# ARGS are declared before any FROM so that they are globally available
+# Reference: https://github.com/docker/for-mac/issues/2155#issuecomment-372639972
+ARG BASE_DOCKER_IMAGE
+# ---------------------------------------------------------------
+# Base image
+# - Configure cache folders for npm and cypress
+# - Install npm and cypress
+# ---------------------------------------------------------------
+FROM node-12.15.0-slim as base
+# Args
+ARG NODE_VERSION
+ARG NPM_VERSION
+ARG CYPRESS_VERSION
+# Env
+ENV NODE_VERSION="${NODE_VERSION}"
+ENV NPM_VERSION="${NPM_VERSION}"
+ENV NODE_ENV=development
+ENV CYPRESS_VERSION="${CYPRESS_VERSION}"
+# good colors for most applications
+ENV TERM xterm
+# avoid million NPM install messages
+ENV npm_config_loglevel warn
+# allow installing when the main user is root
+ENV npm_config_unsafe_perm true
+# avoid too many progress messages
+ENV CI=1
+# For cypress
+# disable shared memory X11 affecting Cypress v4 and Chrome
+# References:
+# https://github.com/cypress-io/cypress-docker-images/blob/master/included/4.3.0/Dockerfile
+# https://github.com/cypress-io/cypress-docker-images/issues/270
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
+# Define the npm cache folder
+ENV NPM_CACHE_FOLDER=/root/.cache/npm
+# point Cypress at the /root/cache no matter what user account is used
+# see https://on.cypress.io/caching
+ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
+RUN mkdir -p ~/.gnupg && \
+  echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf && \
+  # General packages
+  apt-get update && \
+  apt-get install -y --no-install-recommends bash curl gnupg dirmngr ca-certificates gnupg-agent software-properties-common apt-transport-https node-gyp python make g++ git && \
+  # Cypress packages
+  apt-get install -y --no-install-recommends libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb && \
+  # Docker packages
+  curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends docker-ce docker-ce-cli containerd.io && \
+  apt-get purge --auto-remove -y dirmngr gnupg ca-certificates && \
+  rm -rf /var/lib/apt/lists/*
+# Install npm & Cypress
+RUN npm install --global npm@${NPM_VERSION} && \
+  npm install -g "cypress@${CYPRESS_VERSION}" && \
+  echo "Cypress configuration:" && \
+  cypress cache path && \
+  cypress cache list && \
+  cypress info && \
+  cypress verify
+# Useful to inspect the image
+#ENTRYPOINT ["/bin/bash"]
+#CMD []
+# ---------------------------------------------------------------
+# Prefill npm cache image
+# - Installs our dependencies so that the npm cache is "hot" in the image
+# - We do not keep this image! It is only used to help construct the final image
+# ---------------------------------------------------------------
+FROM base as npm-install
+RUN mkdir /temp
+WORKDIR /temp
+RUN echo "Work dir: $(pwd)"
+COPY --chown=root:root package.json package-lock*.json ./
+# Install npm dependencies
+RUN npm ci --cache ${NPM_CACHE_FOLDER} --no-audit --no-optional
+RUN echo "$(ls -ail ${NPM_CACHE_FOLDER})"
+# Useful to inspect the image
+#ENTRYPOINT ["/bin/bash"]
+#CMD []
+# ---------------------------------------------------------------
+# Final CI image
+# - Take the base image and add the npm cache to it (not the node modules of the project)
+# ---------------------------------------------------------------
+FROM base as ci
+COPY --from=npm-install ${NPM_CACHE_FOLDER} ${NPM_CACHE_FOLDER}
+RUN echo "$(ls -ail ${NPM_CACHE_FOLDER})"
+# Useful to inspect the image
+#ENTRYPOINT ["/bin/bash"]
+#CMD []
+
 
 # RUN $(npm bin)/cypress run --browser chrome
 
