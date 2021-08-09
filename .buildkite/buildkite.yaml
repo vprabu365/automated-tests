@@ -1,23 +1,23 @@
-env:
-  CYPRESS_RECORD_KEY: "035d41e9-9eb1-45c5-8d62-eecdcda16773"
-  BUILDKITE_BUILD_ID: "1f9jku"
+# env:
+#   CYPRESS_RECORD_KEY: "035d41e9-9eb1-45c5-8d62-eecdcda16773"
+#   BUILDKITE_BUILD_ID: "1f9jku"
 
-steps:
-  - name: Upload
-    command: "buildkite-agent pipeline upload"
-    label: ":pipeline:"
+# steps:
+#   - name: Upload
+#     command: "buildkite-agent pipeline upload"
+#     label: ":pipeline:"
 
-  - name: Install Node
-    command: "apt-get update\napt-get -y install nodejs\n"
+#   - name: Install Node
+#     command: "apt-get update\napt-get -y install nodejs\n"
     
-  - name: Install Cypress CI dependencies
-    command: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
+#   - name: Install Cypress CI dependencies
+#     command: "apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
 
-  - name: Install Chrome binaries
-    command: "apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb"
+#   - name: Install Chrome binaries
+#     command: "apt-get -y install npm\napt-get install -y wget\napt-get install libxss1 libappindicator1 libindicator7\nwget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n apt -y install ./google-chrome*.deb"
     
-  - name: npm install and run tests
-    command: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
+#   - name: npm install and run tests
+#     command: "npm i -D cypress\nnpm i -D playwright\nnpm run test"
     
 
     
