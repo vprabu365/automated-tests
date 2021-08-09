@@ -19,52 +19,22 @@ RUN apt-get install -y wget &&\
     apt -y install ./google-chrome*.deb
 
 RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
 # Move to the directory and install all the dependencies listed in Package.json
-# RUN npm install playwright -save
-ARG USER_ID
-ARG GROUP_ID
-RUN groupadd -g ${GROUP_ID} cypress-user
-RUN useradd -r --no-log-init -u ${USER_ID} -g cypress-user cypress-user
-RUN install -d -m 0755 -o cypress-user -g cypress-user /home/cypress-user
-RUN mv /root/.cache /home/cypress-user/.cache
-USER cypress-user
-ENV CYPRESS_CACHE_FOLDER=/home/cypress-user/.cache/Cypress
 
-# RUN $(npm bin)/cypress run --browser chrome
+RUN npm install playwright -save
 
-# FROM cypress/base:8.0.0
-# # FROM cypress/base:12.4.0
-# # FROM cypress/browsers:node12.6.0-chrome77
-# #
-# # FROM cypress/base:ubuntu19-node12.14.1
+# good colors for most applications
+ENV TERM xterm
+# avoid million NPM install messages
+ENV npm_config_loglevel warn
+# allow installing when the main user is root
+ENV npm_config_unsafe_perm true
+# avoid too many progress messages
+ENV CI=1
 
-# RUN echo "current user: $(whoami)"
-# RUN echo "current node: $(node -v)"
-# RUN echo "current npm:  $(npm -v)"
-
-# # avoid too many progress messages
-# # https://github.com/cypress-io/cypress/issues/1243
-# ENV CI=1
-# # create package.json file
-# # RUN npm init --yes
-
-# # # install either a specific version of Cypress
-# # ENV CYPRESS_INSTALL_BINARY=https://cdn.cypress.io/beta/binary/4.0.3/darwin-x64/circle-develop-cb0f32b0b4913cbb403f2e7c51b23ecad50ece9f-266831/cypress.zip
-# # # RUN npm install --save-dev cypress@4.0.2
-# # RUN npm install https://cdn.cypress.io/beta/npm/4.0.3/circle-develop-cb0f32b0b4913cbb403f2e7c51b23ecad50ece9f-266811/cypress.tgz
-# # # or install a beta version of Cypress using environment variables
-# # # ENV CYPRESS_INSTALL_BINARY=https://cdn.cypress.io/beta/binary/3.3.0/linux64/circle-develop-40502cbfb7b934afce0a7b1dba4141dab4adb202-100529/cypress.zip
-# # # RUN npm install https://cdn.cypress.io/beta/npm/3.3.0/circle-develop-40502cbfb7b934afce0a7b1dba4141dab4adb202-100527/cypress.tgz
-
-# # show where Cypress binary was installed
-# # hmm, why silent exit?!
-# RUN $(npm bin)/cypress cache path
-
-# RUN ELECTRON_ENABLE_STACK_DUMPING=1 $(npm bin)/cypress verify
-# # initialize a basic project with Cypress tests
-# # RUN npx @bahmutov/cly init
-# # if testing a base image with just Electron use "cypress run"
-# RUN $(npm bin)/cypress run --browser chrome
-# # # # if testing an image with Chrome browser
-# # # RUN $(npm bin)/cypress run --browser chrome
+# Define the npm cache folder
+ENV NPM_CACHE_FOLDER=/root/.cache/npm
+# point Cypress at the /root/cache no matter what user account is used
+# see https://on.cypress.io/caching
 
