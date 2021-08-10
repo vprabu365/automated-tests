@@ -31,6 +31,6 @@ ENV npm_config_unsafe_perm true
 # # avoid too many progress messages
 ENV CI=1
 # Move to the directory and install all the dependencies listed in Package.json
-# RUN npm install 
+RUN npm install 
 
 # RUN $(npm bin)/cypress run --browser chrome
