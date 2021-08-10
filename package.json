@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cy:open": "cypress open",
+    "cy:run": "./node_modules/.bin/cypress install && ./node_modules/.bin/cypress run",
     "test": "./node_modules/.bin/cypress run --headed"
   },
   "keywords": [],
