@@ -1,3 +1,4 @@
+
 FROM node:10
 
 COPY . .
@@ -20,23 +21,12 @@ RUN apt-get install -y wget &&\
 
 RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
-# Move to the directory and install all the dependencies listed in Package.json
-
-RUN npm install playwright -save
-RUN npm install cypress -save
-
-RUN $(npm bin)/cypress run --browser chrome
-# good colors for most applications
-# ENV TERM xterm
-# # avoid million NPM install messages
-# ENV npm_config_loglevel warn
+ENV npm_config_loglevel warn
 # # allow installing when the main user is root
-# ENV npm_config_unsafe_perm true
+ENV npm_config_unsafe_perm true
 # # avoid too many progress messages
-# ENV CI=1
+ENV CI=1
+# Move to the directory and install all the dependencies listed in Package.json
+# RUN npm install 
 
-# # Define the npm cache folder
-# ENV NPM_CACHE_FOLDER=/root/.cache/npm
-# # point Cypress at the /root/cache no matter what user account is used
-# # see https://on.cypress.io/caching
-
+# RUN $(npm bin)/cypress run --browser chrome
