@@ -28,12 +28,11 @@ RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-
 # # # avoid too many progress messages
 # ENV CI=1
 # Move to the directory and install all the dependencies listed in Package.json
-# RUN npm install playwright -save
-RUN npm install
+RUN npm install playwright -save
+
 # RUN npm install cypress  -save
 
-RUN npm run test
-# RUN $(npm bin)/cypress run --browser chrome
+RUN $(npm bin)/cypress run --browser chrome
 
 # ENV NPM_CACHE_FOLDER=/root/.cache/npm
 
