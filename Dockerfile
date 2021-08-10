@@ -23,6 +23,8 @@ RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-
 
 ENV NPM_CACHE_FOLDER=/root/.cache/npm
 
+ENV CYPRESS_CACHE_FOLDER=./root/.cache/Cypress
+
 ENV npm_config_loglevel warn
 # # allow installing when the main user is root
 ENV npm_config_unsafe_perm true
