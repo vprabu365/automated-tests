@@ -32,7 +32,7 @@ RUN npm install playwright -save
 
 # RUN npm install cypress  -save
 
-RUN $(npm bin)/cypress run --browser chrome
+# RUN $(npm bin)/cypress run --browser chrome
 
 # ENV NPM_CACHE_FOLDER=/root/.cache/npm
 
