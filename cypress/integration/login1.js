@@ -1,8 +1,10 @@
 describe(`login scenario using task`, () => {
 
+    const url = Cypress.env('staging')
+
     it(`login test`, () => {
         cy.login();
-        cy.visit(`/home`);
+        cy.visit(url);
         cy.get('[data-qa="pdActivitiesHeader"]').should('be.visible')
         cy.get("[class='c-nav__profile__menu-arrow']").click();
         cy.get("[href='/auth/logout']").scrollIntoView().should('be.visible')

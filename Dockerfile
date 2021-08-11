@@ -1,4 +1,4 @@
-FROM cypress/base:12.18.2
+FROM cypress/base:14.17.0
 
 COPY . .
 
@@ -19,9 +19,8 @@ RUN apt-get install -y wget &&\
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&\ 
     apt -y install ./google-chrome*.deb
 
-
+# install cypress dependencies
 # RUN apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-
 
 # avoid too many progress messages
 ENV CI=1

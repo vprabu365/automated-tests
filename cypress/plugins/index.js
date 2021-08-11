@@ -1,4 +1,6 @@
 const { GetSession } = require('./session.js');
+const fs = require('fs-extra');
+const path = require('path');
 
 /// <reference types="cypress" />
 // ***********************************************************
@@ -13,13 +15,23 @@ const { GetSession } = require('./session.js');
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-
 /**
  * @type {Cypress.PluginConfig}
  */
 
+function getConfigurationByFile(file) {
+  const pathToConfigFile = path.resolve(
+    'cypress/config',
+    `${file}.json`);
+
+  return fs.readJson(pathToConfigFile)
+}
+
 
 module.exports = (on, config) => {
+
+  const file = config.env.configFile || 'local';
+
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on("before:browser:launch", (browser = {}, launchOptions) => {
@@ -29,11 +41,12 @@ module.exports = (on, config) => {
     }
   })
   on('task', {
-    getSession({username, password, url}) {
+    getSession({ username, password, url }) {
       return new Promise(async resolve => {
         resolve(await GetSession(username, password, url));
       });
     },
   });
-  return config;
+
+  return getConfigurationByFile(file)
 };

@@ -1,9 +1,12 @@
 {
-    "baseUrl": "https://app.pdstaging.com/",
     "chromeWebSecurity": false,
     "video": false,
     "taskTimeout":80000,
     "pageLoadTimeout":80000,
-    "defaultCommandTimeout": 10000
+    "defaultCommandTimeout": 10000,
+    "env":{
+        "staging": "https://app.pdstaging.com/",
+        "prod": "https://app.peardeck.com"
+    }
 
 }
