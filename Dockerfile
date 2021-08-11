@@ -31,9 +31,9 @@ RUN npm install playwright -save &&\
 
 # RUN $(npm bin)/cypress run --browser chrome
 
-ENV CYPRESS_CACHE_FOLDER=~/.cache/Cypress
+ENV CYPRESS_CACHE_FOLDER=./root/.cache/Cypress/8.0.0/Cypress/Cypress
 
-RUN $(npm bin)/cypress verify
+# RUN $(npm bin)/cypress verify
 
 
 # RUN npm install --save-dev cypress
