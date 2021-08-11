@@ -6,7 +6,7 @@
   "scripts": {
     "cy:open": "cypress open",
     "test": "npx cypress run --browser chrome",
-    "test:ci": "npx cypress run --browser chrome --env"
+    "test:ci": "./node_modules/.bin/cypress run --browser chrome --env"
   },
   "keywords": [],
   "author": "",
