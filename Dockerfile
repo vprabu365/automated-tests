@@ -1,5 +1,4 @@
-
-FROM node:10
+FROM cypress/base:12.18.2
 
 COPY . .
 
@@ -32,6 +31,11 @@ RUN npm install playwright -save &&\
 
 # RUN $(npm bin)/cypress run --browser chrome
 
-# ENV NPM_CACHE_FOLDER=/root/.cache/npm
+ENV CYPRESS_CACHE_FOLDER=~/.cache/Cypress
 
-# ENV CYPRESS_CACHE_FOLDER=./root/.cache/Cypress
+RUN $(npm bin)/cypress verify
+
+
+# RUN npm install --save-dev cypress
+
+# RUN $(npm bin)/cypress run
