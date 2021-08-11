@@ -1,6 +1,6 @@
 describe(`login scenario using task`, () => {
 
-    const url = Cypress.env('staging')
+    const url = Cypress.env('staging') + 'home'
 
     it(`login test`, () => {
         cy.login();
