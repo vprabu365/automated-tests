@@ -30,7 +30,7 @@ function getConfigurationByFile(file) {
 
 module.exports = (on, config) => {
 
-  const file = config.env.configFile || 'local';
+  const file = config.env.configFile || 'staging';
 
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
